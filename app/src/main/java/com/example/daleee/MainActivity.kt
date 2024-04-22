@@ -68,6 +68,9 @@ class MainActivity : ComponentActivity() {
                                         pathList.add(pathList.last())
                                     }
 
+                                },
+                                {cap ->
+                                    linePath.value = linePath.value.copy(currentCap = cap)
                                 }
                             )
                         }
@@ -117,7 +120,7 @@ fun DrawCanvas(linePath: MutableState<LinePath>, pathList: SnapshotStateList<Lin
             drawPath(
                 line.path,
                 color = line.color,
-                style = Stroke(width = line.lineWidth, cap = StrokeCap.Round)
+                style = Stroke(width = line.lineWidth, cap = line.currentCap)
             )
         }
     }

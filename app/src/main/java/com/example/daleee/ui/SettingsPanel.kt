@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -44,7 +45,8 @@ fun SettingsPanel(
     onWidthChanged: (Float) -> Unit,
     sheetState: SheetState,
     scope: CoroutineScope,
-    onCanceledClick: () -> Unit
+    onCanceledClick: () -> Unit,
+    onCapChanged: (StrokeCap) -> Unit
 ) {
     Column(
         Modifier
@@ -60,7 +62,7 @@ fun SettingsPanel(
         CustomSlider { lineWidth ->
             onWidthChanged(lineWidth)
         }
-        Erased(onClick, onWidthChanged, onCanceledClick)
+        ButtonPanel(onClick, onWidthChanged, onCanceledClick, onCapChanged)
     }
 }
 
@@ -147,7 +149,12 @@ fun HideBottomSheet(sheetState: SheetState, scope: CoroutineScope) {
 }
 
 @Composable
-fun Erased(onClick: (Color) -> Unit, onWidthChanged: (Float) -> Unit, onCanceled: () -> Unit) {
+fun ButtonPanel(
+    onClick: (Color) -> Unit,
+    onWidthChanged: (Float) -> Unit,
+    onCanceled: () -> Unit,
+    onCapChages: (StrokeCap) -> Unit
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -174,7 +181,7 @@ fun Erased(onClick: (Color) -> Unit, onWidthChanged: (Float) -> Unit, onCanceled
         }
         Button(
             onClick = {
-
+                onCapChages(StrokeCap.Round)
             },
             modifier = Modifier.size(40.dp),
             shape = CircleShape,
@@ -182,7 +189,7 @@ fun Erased(onClick: (Color) -> Unit, onWidthChanged: (Float) -> Unit, onCanceled
             contentPadding = PaddingValues(0.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_eraser),
+                painter = painterResource(id = R.drawable.ic_circle),
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
@@ -190,7 +197,7 @@ fun Erased(onClick: (Color) -> Unit, onWidthChanged: (Float) -> Unit, onCanceled
         }
         Button(
             onClick = {
-
+                onCapChages(StrokeCap.Square)
             },
             modifier = Modifier.size(40.dp),
             shape = CircleShape,
@@ -198,7 +205,7 @@ fun Erased(onClick: (Color) -> Unit, onWidthChanged: (Float) -> Unit, onCanceled
             contentPadding = PaddingValues(0.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_eraser),
+                painter = painterResource(id = R.drawable.ic_square),
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
@@ -206,7 +213,7 @@ fun Erased(onClick: (Color) -> Unit, onWidthChanged: (Float) -> Unit, onCanceled
         }
         Button(
             onClick = {
-
+                onCapChages(StrokeCap.Butt)
             },
             modifier = Modifier.size(40.dp),
             shape = CircleShape,
@@ -214,7 +221,7 @@ fun Erased(onClick: (Color) -> Unit, onWidthChanged: (Float) -> Unit, onCanceled
             contentPadding = PaddingValues(0.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_eraser),
+                painter = painterResource(id = R.drawable.ic_butt),
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
