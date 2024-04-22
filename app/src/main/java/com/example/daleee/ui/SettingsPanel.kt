@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.daleee.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -63,6 +64,16 @@ fun SettingsPanel(
             onWidthChanged(lineWidth)
         }
         ButtonPanel(onClick, onWidthChanged, onCanceledClick, onCapChanged)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "ластик")
+            Text(text = "форма кисти")
+            Text(text = "отмена")
+        }
     }
 }
 
@@ -124,7 +135,7 @@ fun HideBottomSheet(sheetState: SheetState, scope: CoroutineScope) {
     Box(
         Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(end = 16.dp, bottom = 16.dp),
         Alignment.CenterEnd,
     ) {
         Button(
