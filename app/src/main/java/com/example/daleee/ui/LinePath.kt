@@ -5,5 +5,6 @@ import androidx.compose.ui.graphics.Path
 
 data class LinePath(
     val color: Color = Color.Black,
-    val path: Path = Path()
+    val path: Path = Path(),
+    val lineWidth: Float = 5f
 )

@@ -30,10 +30,10 @@ class MainActivity : ComponentActivity() {
             }
             DaLeeeTheme {
                 Column {
+                    SettingsPanel(
+                        { color -> linePath.value = linePath.value.copy(color = color) },
+                        { lineWidth -> linePath.value = linePath.value.copy(lineWidth = lineWidth)})
                     Greeting(linePath)
-                    SettingsPanel { color ->
-                        linePath.value = linePath.value.copy(color = color)
-                    }
                 }
             }
         }
@@ -55,6 +55,9 @@ fun Greeting(linePath: MutableState<LinePath>) {
                 detectDragGestures(
                     onDragStart = {
                         currentPath = Path()
+                    },
+                    onDragEnd = {
+                        pathList.add(linePath.value.copy(path = currentPath))
                     }
                 ) { change, dragAmount ->
                     currentPath.moveTo(
@@ -65,6 +68,7 @@ fun Greeting(linePath: MutableState<LinePath>) {
                         change.position.x,
                         change.position.y
                     )
+                    if (pathList.size > 0) pathList.removeAt(pathList.lastIndex)
                     pathList.add(linePath.value.copy(path = currentPath))
                 }
             }
@@ -73,7 +77,7 @@ fun Greeting(linePath: MutableState<LinePath>) {
             drawPath(
                 line.path,
                 color = line.color,
-                style = Stroke(width = 5.0f)
+                style = Stroke(width = line.lineWidth)
             )
         }
     }
