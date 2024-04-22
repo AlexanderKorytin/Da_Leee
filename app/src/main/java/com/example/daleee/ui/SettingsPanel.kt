@@ -52,7 +52,7 @@ fun SettingsPanel(
     Column(
         Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.4f)
+            .fillMaxHeight(0.45f)
             .background(color = Color.LightGray),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -67,7 +67,7 @@ fun SettingsPanel(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = "ластик")
@@ -135,7 +135,7 @@ fun HideBottomSheet(sheetState: SheetState, scope: CoroutineScope) {
     Box(
         Modifier
             .fillMaxWidth()
-            .padding(end = 16.dp, bottom = 16.dp),
+            .padding(end = 16.dp, bottom = 16.dp, top = 8.dp),
         Alignment.CenterEnd,
     ) {
         Button(
