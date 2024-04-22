@@ -61,10 +61,10 @@ class MainActivity : ComponentActivity() {
                                 sheetState,
                                 scope,
                                 {
-                                        pathList.removeIf{path ->
-                                            pathList[pathList.size-1] == path
-                                        }
-                                    if (pathList.isNotEmpty()){
+                                    pathList.removeIf { path ->
+                                        pathList[pathList.size - 1] == path
+                                    }
+                                    if (pathList.isNotEmpty()) {
                                         pathList.add(pathList.last())
                                     }
 
