@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SettingsPanel(onClick: (Color) -> Unit, onWidthChanged:(Float) -> Unit) {
+fun SettingsPanel(onClick: (Color) -> Unit, onWidthChanged: (Float) -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -35,7 +35,7 @@ fun SettingsPanel(onClick: (Color) -> Unit, onWidthChanged:(Float) -> Unit) {
         ColorList { color ->
             onClick(color)
         }
-        CustomSlider{ lineWidth ->
+        CustomSlider { lineWidth ->
             onWidthChanged(lineWidth)
         }
     }
@@ -73,7 +73,7 @@ fun ColorList(onClick: (Color) -> Unit) {
 }
 
 @Composable
-fun CustomSlider(onPositionChanged:(Float) -> Unit) {
+fun CustomSlider(onPositionChanged: (Float) -> Unit) {
     var position by remember {
         mutableStateOf(0.05f)
     }
