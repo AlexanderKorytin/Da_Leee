@@ -19,10 +19,12 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import com.example.daleee.ui.LinePath
@@ -36,6 +38,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             val linePath = remember {
                 mutableStateOf(LinePath())
+            }
+            val pathList = remember {
+                mutableStateListOf(LinePath())
             }
             DaLeeeTheme {
                 val sheetState =
@@ -54,7 +59,16 @@ class MainActivity : ComponentActivity() {
                                     linePath.value = linePath.value.copy(lineWidth = lineWidth)
                                 },
                                 sheetState,
-                                scope
+                                scope,
+                                {
+                                        pathList.removeIf{path ->
+                                            pathList[pathList.size-1] == path
+                                        }
+                                    if (pathList.isNotEmpty()){
+                                        pathList.add(pathList.last())
+                                    }
+
+                                }
                             )
                         }
                     }, sheetContainerColor = Color.LightGray
@@ -63,7 +77,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Greeting(linePath)
+                        DrawCanvas(linePath, pathList)
                     }
                 }
             }
@@ -72,12 +86,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(linePath: MutableState<LinePath>) {
+fun DrawCanvas(linePath: MutableState<LinePath>, pathList: SnapshotStateList<LinePath>) {
     var currentPath = Path()
-    val pathList = remember {
-        mutableStateListOf(LinePath())
-    }
-
     Canvas(
         modifier = Modifier
             .fillMaxSize()
@@ -107,7 +117,7 @@ fun Greeting(linePath: MutableState<LinePath>) {
             drawPath(
                 line.path,
                 color = line.color,
-                style = Stroke(width = line.lineWidth)
+                style = Stroke(width = line.lineWidth, cap = StrokeCap.Round)
             )
         }
     }

@@ -3,9 +3,11 @@ package com.example.daleee.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,6 +44,7 @@ fun SettingsPanel(
     onWidthChanged: (Float) -> Unit,
     sheetState: SheetState,
     scope: CoroutineScope,
+    onCanceledClick: () -> Unit
 ) {
     Column(
         Modifier
@@ -57,6 +60,7 @@ fun SettingsPanel(
         CustomSlider { lineWidth ->
             onWidthChanged(lineWidth)
         }
+        Erased(onClick, onWidthChanged, onCanceledClick)
     }
 }
 
@@ -134,6 +138,99 @@ fun HideBottomSheet(sheetState: SheetState, scope: CoroutineScope) {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_down),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+    }
+}
+
+@Composable
+fun Erased(onClick: (Color) -> Unit, onWidthChanged: (Float) -> Unit, onCanceled: () -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+    ) {
+        Button(
+            onClick = {
+                onClick(Color.White)
+                onWidthChanged(80f)
+            },
+            modifier = Modifier.size(40.dp),
+            shape = CircleShape,
+            colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_eraser),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+        Button(
+            onClick = {
+
+            },
+            modifier = Modifier.size(40.dp),
+            shape = CircleShape,
+            colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_eraser),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+        Button(
+            onClick = {
+
+            },
+            modifier = Modifier.size(40.dp),
+            shape = CircleShape,
+            colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_eraser),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+        Button(
+            onClick = {
+
+            },
+            modifier = Modifier.size(40.dp),
+            shape = CircleShape,
+            colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_eraser),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+        Button(
+            onClick = {
+                onCanceled()
+            },
+            modifier = Modifier.size(40.dp),
+            shape = CircleShape,
+            colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_rollback),
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
