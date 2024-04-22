@@ -1,16 +1,23 @@
 package com.example.daleee.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,17 +28,29 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.daleee.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsPanel(onClick: (Color) -> Unit, onWidthChanged: (Float) -> Unit) {
+fun SettingsPanel(
+    onClick: (Color) -> Unit,
+    onWidthChanged: (Float) -> Unit,
+    sheetState: SheetState,
+    scope: CoroutineScope,
+) {
     Column(
         Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.25f)
+            .fillMaxHeight(0.4f)
             .background(color = Color.LightGray),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        HideBottomSheet(sheetState, scope)
         ColorList { color ->
             onClick(color)
         }
@@ -90,5 +109,35 @@ fun CustomSlider(onPositionChanged: (Float) -> Unit) {
                 .padding(8.dp)
         )
 
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HideBottomSheet(sheetState: SheetState, scope: CoroutineScope) {
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        Alignment.CenterEnd,
+    ) {
+        Button(
+            onClick = {
+                scope.launch {
+                    sheetState.partialExpand()
+                }
+            },
+            modifier = Modifier.size(64.dp),
+            shape = CircleShape,
+            colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_down),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
     }
 }

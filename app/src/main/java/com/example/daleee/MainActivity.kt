@@ -10,13 +10,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetValue
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
@@ -33,15 +38,27 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(LinePath())
             }
             DaLeeeTheme {
-                BottomSheetScaffold(sheetContent = {
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        SettingsPanel(
-                            { color -> linePath.value = linePath.value.copy(color = color) },
-                            { lineWidth ->
-                                linePath.value = linePath.value.copy(lineWidth = lineWidth)
-                            })
-                    }
-                }) {
+                val sheetState =
+                    rememberStandardBottomSheetState(initialValue = SheetValue.PartiallyExpanded)
+                val scaffoldState = rememberBottomSheetScaffoldState(
+                    sheetState
+                )
+                val scope = rememberCoroutineScope()
+                BottomSheetScaffold(
+                    scaffoldState = scaffoldState,
+                    sheetContent = {
+                        Box(modifier = Modifier.fillMaxWidth()) {
+                            SettingsPanel(
+                                { color -> linePath.value = linePath.value.copy(color = color) },
+                                { lineWidth ->
+                                    linePath.value = linePath.value.copy(lineWidth = lineWidth)
+                                },
+                                sheetState,
+                                scope
+                            )
+                        }
+                    }, sheetContainerColor = Color.LightGray
+                ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
