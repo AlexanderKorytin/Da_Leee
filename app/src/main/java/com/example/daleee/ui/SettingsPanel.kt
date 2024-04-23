@@ -163,7 +163,7 @@ fun ButtonPanel(
     onClick: (Color) -> Unit,
     onWidthChanged: (Float) -> Unit,
     onCanceled: () -> Unit,
-    onCapChages: (StrokeCap) -> Unit
+    onCapChanges: (StrokeCap) -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -191,7 +191,7 @@ fun ButtonPanel(
         }
         Button(
             onClick = {
-                onCapChages(StrokeCap.Round)
+                onCapChanges(StrokeCap.Round)
             },
             modifier = Modifier.size(40.dp),
             shape = CircleShape,
@@ -207,7 +207,7 @@ fun ButtonPanel(
         }
         Button(
             onClick = {
-                onCapChages(StrokeCap.Square)
+                onCapChanges(StrokeCap.Square)
             },
             modifier = Modifier.size(40.dp),
             shape = CircleShape,
@@ -223,7 +223,7 @@ fun ButtonPanel(
         }
         Button(
             onClick = {
-                onCapChages(StrokeCap.Butt)
+                onCapChanges(StrokeCap.Butt)
             },
             modifier = Modifier.size(40.dp),
             shape = CircleShape,
