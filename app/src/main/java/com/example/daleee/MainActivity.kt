@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -104,14 +106,16 @@ fun DrawCanvas(linePath: MutableState<LinePath>, pathList: SnapshotStateList<Lin
                     }
                 ) { change, dragAmount ->
                     currentPath.moveTo(
-                        change.position.x - dragAmount.x,
-                        change.position.y - dragAmount.y
+                        (change.position.x - dragAmount.x),
+                        (change.position.y - dragAmount.y)
                     )
                     currentPath.lineTo(
                         change.position.x,
                         change.position.y
                     )
-                    if (pathList.size > 0) pathList.removeAt(pathList.lastIndex)
+                    if (pathList.size > 0) {
+                        pathList.removeAt(pathList.lastIndex)
+                    }
                     pathList.add(linePath.value.copy(path = currentPath))
                 }
             }
