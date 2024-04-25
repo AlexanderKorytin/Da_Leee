@@ -160,7 +160,7 @@ fun HideBottomSheet(sheetState: SheetState, scope: CoroutineScope) {
 
 @Composable
 fun ButtonPanel(
-    onClick: (Color) -> Unit,
+    onClickEraser: (Color) -> Unit,
     onWidthChanged: (Float) -> Unit,
     onCanceled: () -> Unit,
     onCapChanges: (StrokeCap) -> Unit
@@ -174,8 +174,7 @@ fun ButtonPanel(
     ) {
         Button(
             onClick = {
-                onClick(Color.White)
-                onWidthChanged(80f)
+                onClickEraser(Color.White)
             },
             modifier = Modifier.size(40.dp),
             shape = CircleShape,

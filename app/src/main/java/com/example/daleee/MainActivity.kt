@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
@@ -32,6 +34,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import com.example.daleee.ui.LinePath
 import com.example.daleee.ui.SettingsPanel
 import com.example.daleee.ui.theme.DaLeeeTheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.joinAll
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -104,23 +108,7 @@ fun DrawCanvas(linePath: MutableState<LinePath>, pathList: SnapshotStateList<Lin
                     currentPath.addOval(Rect(center = Offset(it.x, it.y), radius = 0f))
                     pathList.add(linePath.value.copy(path = currentPath))
                     detectDragGestures(
-                        onDrag = { change, dragAmount ->
-                            currentPath.lineTo(
-                                (change.previousPosition.x),
-                                (change.previousPosition.y)
-                            )
-                            currentPath.moveTo(
-                                (change.previousPosition.x),
-                                (change.previousPosition.y)
-                            )
-                            currentPath.lineTo(
-                                change.position.x - dragAmount.x,
-                                change.position.y - dragAmount.y
-                            )
-                            currentPath.moveTo(
-                                change.position.x - dragAmount.x,
-                                change.position.y - dragAmount.y
-                            )
+                        onDrag = { change, _ ->
                             currentPath.lineTo(
                                 change.position.x,
                                 change.position.y
