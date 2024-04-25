@@ -263,5 +263,6 @@ fun ButtonPanel(
         }
     }
 }
+
 private const val DELAY_ALFA_SHEET = 500L
 val ERASE_COLOR = Color(0xFFFFFBFE)
