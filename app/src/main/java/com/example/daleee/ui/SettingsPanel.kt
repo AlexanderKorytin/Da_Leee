@@ -62,7 +62,7 @@ fun SettingsPanel(
         CustomSlider { lineWidth ->
             onWidthChanged(lineWidth)
         }
-        ButtonPanel(onClick, onWidthChanged, onCanceledClick, onCapChanged)
+        ButtonPanel(onClick, onCanceledClick, onCapChanged)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -161,7 +161,6 @@ fun HideBottomSheet(sheetState: SheetState, scope: CoroutineScope) {
 @Composable
 fun ButtonPanel(
     onClickEraser: (Color) -> Unit,
-    onWidthChanged: (Float) -> Unit,
     onCanceled: () -> Unit,
     onCapChanges: (StrokeCap) -> Unit
 ) {
@@ -174,7 +173,7 @@ fun ButtonPanel(
     ) {
         Button(
             onClick = {
-                onClickEraser(Color.White)
+                onClickEraser(Color(0xFFFFFBFE))
             },
             modifier = Modifier.size(40.dp),
             shape = CircleShape,
