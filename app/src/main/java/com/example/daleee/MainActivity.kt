@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -35,7 +36,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.daleee.ui.ERASE_COLOR
 import com.example.daleee.ui.LinePath
 import com.example.daleee.ui.SettingsPanel
 import com.example.daleee.ui.theme.DaLeeeTheme
@@ -139,15 +142,32 @@ fun DrawCanvas(linePath: MutableState<LinePath>, pathList: SnapshotStateList<Lin
                 )
             }
         }
-        Box(
-            modifier = Modifier
-                .padding(16.dp)
-                .size(40.dp)
-                .shadow(elevation = 16.dp, shape = CircleShape, ambientColor = linePath.value.color)
-                .clipToBounds()
-                .background(color = linePath.value.color, CircleShape)
-                .align(Alignment.TopStart)
-        )
+        Box {
+            if (linePath.value.color == ERASE_COLOR) {
+                Image(
+                    painterResource(id = R.drawable.ic_eraser), null,
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .size(40.dp)
+                        .clipToBounds()
+                        .align(Alignment.TopStart),
+                )
+            } else {
+                Box(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .size(40.dp)
+                        .shadow(
+                            elevation = 16.dp,
+                            shape = CircleShape,
+                            ambientColor = linePath.value.color
+                        )
+                        .clipToBounds()
+                        .background(color = linePath.value.color)
+                        .align(Alignment.TopStart),
+                )
+            }
+        }
     }
 }
 

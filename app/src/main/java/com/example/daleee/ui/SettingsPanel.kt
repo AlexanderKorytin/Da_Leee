@@ -36,6 +36,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.daleee.R
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,7 +47,7 @@ fun SettingsPanel(
     sheetState: SheetState,
     scope: CoroutineScope,
     onCanceledClick: () -> Unit,
-    onCapChanged: (StrokeCap) -> Unit
+    onCapChanged: (StrokeCap) -> Unit,
 ) {
     Column(
         Modifier
@@ -62,7 +63,7 @@ fun SettingsPanel(
         CustomSlider { lineWidth ->
             onWidthChanged(lineWidth)
         }
-        ButtonPanel(onClick, onCanceledClick, onCapChanged)
+        ButtonPanel(onClick, onCanceledClick, onCapChanged, sheetState, scope)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -158,11 +159,14 @@ fun HideBottomSheet(sheetState: SheetState, scope: CoroutineScope) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ButtonPanel(
     onClickEraser: (Color) -> Unit,
     onCanceled: () -> Unit,
-    onCapChanges: (StrokeCap) -> Unit
+    onCapChanges: (StrokeCap) -> Unit,
+    sheetState: SheetState,
+    scope: CoroutineScope,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -173,7 +177,7 @@ fun ButtonPanel(
     ) {
         Button(
             onClick = {
-                onClickEraser(Color(0xFFFFFBFE))
+                onClickEraser(ERASE_COLOR)
             },
             modifier = Modifier.size(40.dp),
             shape = CircleShape,
@@ -238,8 +242,14 @@ fun ButtonPanel(
         Button(
             onClick = {
                 onCanceled()
+                scope.launch {
+                    sheetState.partialExpand()
+                    delay(DELAY_ALFA_SHEET)
+                    sheetState.expand()
+                }
             },
-            modifier = Modifier.size(40.dp),
+            modifier = Modifier
+                .size(40.dp),
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
             contentPadding = PaddingValues(0.dp)
@@ -253,3 +263,5 @@ fun ButtonPanel(
         }
     }
 }
+private const val DELAY_ALFA_SHEET = 500L
+val ERASE_COLOR = Color(0xFFFFFBFE)
