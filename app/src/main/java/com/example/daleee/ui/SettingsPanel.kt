@@ -34,6 +34,10 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.daleee.DP_VALUR_0
+import com.example.daleee.DP_VALUR_16
+import com.example.daleee.DP_VALUR_40
+import com.example.daleee.DP_VALUR_8
 import com.example.daleee.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -67,7 +71,7 @@ fun SettingsPanel(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = DP_VALUR_16, vertical = DP_VALUR_8),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = "ластик")
@@ -92,16 +96,16 @@ fun ColorList(onClick: (Color) -> Unit) {
 
     }
     LazyRow(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(DP_VALUR_16)
     ) {
         items(colors) { color ->
             Box(
                 modifier = Modifier
-                    .padding(end = 8.dp)
+                    .padding(end = DP_VALUR_8)
                     .clickable {
                         onClick(color)
                     }
-                    .size(40.dp)
+                    .size(DP_VALUR_40)
                     .background(color = color, CircleShape)
             )
         }
@@ -123,7 +127,7 @@ fun CustomSlider(onPositionChanged: (Float) -> Unit) {
             },
             modifier = Modifier
                 .background(color = Color.LightGray)
-                .padding(8.dp)
+                .padding(DP_VALUR_8)
         )
 
     }
@@ -135,7 +139,7 @@ fun HideBottomSheet(sheetState: SheetState, scope: CoroutineScope) {
     Box(
         Modifier
             .fillMaxWidth()
-            .padding(end = 16.dp, bottom = 16.dp, top = 8.dp),
+            .padding(end = DP_VALUR_16, bottom = DP_VALUR_16, top = DP_VALUR_8),
         Alignment.CenterEnd,
     ) {
         Button(
@@ -147,7 +151,7 @@ fun HideBottomSheet(sheetState: SheetState, scope: CoroutineScope) {
             modifier = Modifier.size(64.dp),
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
-            contentPadding = PaddingValues(0.dp)
+            contentPadding = PaddingValues(DP_VALUR_0)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_down),
@@ -173,16 +177,16 @@ fun ButtonPanel(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = DP_VALUR_16)
     ) {
         Button(
             onClick = {
                 onClickEraser(ERASE_COLOR)
             },
-            modifier = Modifier.size(40.dp),
+            modifier = Modifier.size(DP_VALUR_40),
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
-            contentPadding = PaddingValues(0.dp)
+            contentPadding = PaddingValues(DP_VALUR_0)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_eraser),
@@ -195,10 +199,10 @@ fun ButtonPanel(
             onClick = {
                 onCapChanges(StrokeCap.Round)
             },
-            modifier = Modifier.size(40.dp),
+            modifier = Modifier.size(DP_VALUR_40),
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
-            contentPadding = PaddingValues(0.dp)
+            contentPadding = PaddingValues(DP_VALUR_0)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_circle),
@@ -211,10 +215,10 @@ fun ButtonPanel(
             onClick = {
                 onCapChanges(StrokeCap.Square)
             },
-            modifier = Modifier.size(40.dp),
+            modifier = Modifier.size(DP_VALUR_40),
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
-            contentPadding = PaddingValues(0.dp)
+            contentPadding = PaddingValues(DP_VALUR_0)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_square),
@@ -227,10 +231,10 @@ fun ButtonPanel(
             onClick = {
                 onCapChanges(StrokeCap.Butt)
             },
-            modifier = Modifier.size(40.dp),
+            modifier = Modifier.size(DP_VALUR_40),
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
-            contentPadding = PaddingValues(0.dp)
+            contentPadding = PaddingValues(DP_VALUR_0)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_butt),
@@ -252,7 +256,7 @@ fun ButtonPanel(
                 .size(40.dp),
             shape = CircleShape,
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
-            contentPadding = PaddingValues(0.dp)
+            contentPadding = PaddingValues(DP_VALUR_0)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_rollback),

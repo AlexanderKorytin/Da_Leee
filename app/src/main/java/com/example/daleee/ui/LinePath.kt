@@ -8,5 +8,6 @@ data class LinePath(
     val color: Color = Color.Black,
     val path: Path = Path(),
     val lineWidth: Float = 5f,
-    val currentCap: StrokeCap = StrokeCap.Round
+    val currentCap: StrokeCap = StrokeCap.Round,
+    val alfa: Float = 1f
 )
