@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
@@ -239,6 +240,19 @@ fun DrawCanvas(
                         .align(Alignment.TopStart),
                 )
             }
+        }
+        Box(modifier = Modifier
+            .padding(16.dp)
+            .size(40.dp)
+            .clickable {
+                pathList.clear()
+                imageUri.value = null
+            }
+            .align(Alignment.TopCenter)) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_trash_cart),
+                contentDescription = null
+            )
         }
     }
 }
