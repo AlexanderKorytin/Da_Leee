@@ -277,12 +277,6 @@ fun SetEraser(isAlfaSliderVisibility: MutableState<Boolean>, linePath: MutableSt
             detectTapGestures(
                 onPress = {
                     isAlfaSliderVisibility.value = true
-                },
-                onTap = {
-                    isAlfaSliderVisibility.value = false
-                },
-                onLongPress = {
-                    isAlfaSliderVisibility.value = true
                 }
             )
         }) {
