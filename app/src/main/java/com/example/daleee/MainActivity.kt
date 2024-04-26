@@ -1,8 +1,11 @@
 package com.example.daleee
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -46,6 +49,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.daleee.ui.ERASE_COLOR
 import com.example.daleee.ui.LinePath
 import com.example.daleee.ui.SettingsPanel
@@ -55,6 +60,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             val linePath = remember {
                 mutableStateOf(LinePath())
@@ -69,6 +75,9 @@ class MainActivity : ComponentActivity() {
                     sheetState
                 )
                 val scope = rememberCoroutineScope()
+                var imageUri = remember {
+                    mutableStateOf<Uri?>(null)
+                }
                 BottomSheetScaffold(
                     scaffoldState = scaffoldState,
                     sheetContent = {
@@ -100,7 +109,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        DrawCanvas(linePath, pathList)
+                        DrawCanvas(linePath, pathList, imageUri)
                         Box(
                             modifier = Modifier
                                 .padding(16.dp)
@@ -108,7 +117,7 @@ class MainActivity : ComponentActivity() {
                                 .clipToBounds()
                                 .align(Alignment.TopEnd)
                         ) {
-                            AddImage()
+                            AddImage(imageUri)
                         }
                     }
                 }
@@ -118,11 +127,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AddImage() {
+fun AddImage(imageUri: MutableState<Uri?>) {
+    val launcher = rememberLauncherForActivityResult(
+        contract =
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        imageUri.value = uri
+    }
     Column {
         Button(
             onClick = {
-
+                launcher.launch("image/*")
             },
             modifier = Modifier
                 .size(40.dp)
@@ -142,10 +157,24 @@ fun AddImage() {
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun DrawCanvas(linePath: MutableState<LinePath>, pathList: SnapshotStateList<LinePath>) {
+fun DrawCanvas(
+    linePath: MutableState<LinePath>,
+    pathList: SnapshotStateList<LinePath>,
+    imageUri: MutableState<Uri?>
+) {
     var currentPath = Path()
-    Box {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            GlideImage(
+                model = imageUri.value,
+                contentDescription = null,
+                contentScale = ContentScale.FillWidth
+            ) {
+                it.load(imageUri.value)
+            }
+        }
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
