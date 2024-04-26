@@ -172,6 +172,7 @@ fun DrawCanvas(
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth
             ) {
+                pathList.clear()
                 it.load(imageUri.value)
             }
         }
