@@ -9,14 +9,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SheetValue
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
@@ -36,8 +42,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.daleee.ui.ERASE_COLOR
 import com.example.daleee.ui.LinePath
 import com.example.daleee.ui.SettingsPanel
@@ -93,10 +101,44 @@ class MainActivity : ComponentActivity() {
                         contentAlignment = Alignment.Center
                     ) {
                         DrawCanvas(linePath, pathList)
+                        Box(
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .wrapContentSize()
+                                .clipToBounds()
+                                .align(Alignment.TopEnd)
+                        ) {
+                            AddImage()
+                        }
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+fun AddImage() {
+    Column {
+        Button(
+            onClick = {
+
+            },
+            modifier = Modifier
+                .size(40.dp)
+                .align(Alignment.CenterHorizontally),
+            shape = CircleShape,
+            colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.LightGray),
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_plus),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+        Text(text = "Add image", fontSize = 12.sp)
     }
 }
 
