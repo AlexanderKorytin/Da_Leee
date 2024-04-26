@@ -113,7 +113,7 @@ fun DrawCanvas(linePath: MutableState<LinePath>, pathList: SnapshotStateList<Lin
                     detectTapGestures(onPress = {
                         currentPath = Path()
                         currentPath.moveTo(it.x, it.y)
-                        currentPath.addOval(Rect(center = Offset(it.x, it.y), radius = 0f))
+                        currentPath.addOval(Rect(center = Offset(it.x, it.y), radius = 1f))
                         pathList.add(linePath.value.copy(path = currentPath))
                     })
                 }
