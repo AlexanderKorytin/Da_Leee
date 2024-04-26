@@ -1,4 +1,4 @@
-package com.example.daleee.ui
+package com.example.daleee.ui.screen_fun
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,13 +20,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -109,27 +104,6 @@ fun ColorList(onClick: (Color) -> Unit) {
                     .background(color = color, CircleShape)
             )
         }
-    }
-}
-
-@Composable
-fun CustomSlider(onPositionChanged: (Float) -> Unit) {
-    var position by remember {
-        mutableStateOf(0.05f)
-    }
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Толщина линии: ${(position * 100).toInt()}")
-        Slider(
-            value = position,
-            onValueChange = {
-                position = if (it > 0) it else 0.05f
-                onPositionChanged(position * 100)
-            },
-            modifier = Modifier
-                .background(color = Color.LightGray)
-                .padding(DP_VALUR_8)
-        )
-
     }
 }
 
