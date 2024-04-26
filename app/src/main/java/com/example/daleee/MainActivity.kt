@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
                     sheetState
                 )
                 val scope = rememberCoroutineScope()
-                var imageUri = remember {
+                val imageUri = remember {
                     mutableStateOf<Uri?>(null)
                 }
                 BottomSheetScaffold(
