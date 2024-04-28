@@ -71,7 +71,7 @@ fun AlfaSlider(
                     )
                 }
             )
-            Text(text = "Толщина линии: ${(position * 100).toInt()}")
+            Text(text = "Непрозрачность линии: ${(position * 100).toInt()}")
         }
     }
 }
